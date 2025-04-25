@@ -18,7 +18,7 @@ function Count() {
   return (
     <>
       <button onClick={() => dispatch(incCount()) } >+</button>
-        <h1>{count}</h1>
+        {/* <h1>{count}</h1> */}
       <button onClick={()=> dispatch(descCount())}>-</button>
  <br/>
  <br/>

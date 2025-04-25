@@ -10,9 +10,11 @@ function App() {
  return (
 
     <>
+      {/* <Count/> */}
+      <hr />
       <Todo/>
 
-      {/* <Count/> */}
+    
     </>
   )
 }

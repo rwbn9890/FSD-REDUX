@@ -1,6 +1,4 @@
-import { ADD_TODO, CLEAR_TODO, REMOVE_TODO } from "./action"
-
-
+import { ADD_TODO, CLEAR_TODO, REMOVE_TODO, UPDATE_TODO } from "./action"
 
 
 function reducer(store = [], action){
@@ -11,24 +9,32 @@ function reducer(store = [], action){
         return [
             ...store,
             {
-                    id:1,
+                    id: store.length==0 ? store.length : store[store.length-1].id+1 ,
                     title:action.payload,
                     status : false
                 }
         ]
-
-    // let obj = {
-    //     id:1,
-    //     title:"wake up",
-    //     status : false
-    // }
-    //     store.push(obj)
-
-   
     }
     else if (action.type == REMOVE_TODO)
     {
-       return store.splice(0, store.length-1)
+       return store.filter(ele => ele.id != action.id )
+    }
+
+    else if(action.type == UPDATE_TODO)
+    {
+        return store.map((ele) => ele.id == action.id ?
+         {...ele, status: !ele.status}
+          : ele
+
+
+        //   return store.map((ele) => {
+        //     if(ele.id === action.id){
+        //         ele.status = !ele.status
+        //     }
+        //     return ele
+        //   })
+    
+    )
     }
 
     else if (action.type == CLEAR_TODO)
