@@ -1,7 +1,7 @@
 
 import './App.css'
 import Count from './components/Count'
-import Todo from './components/Todo'
+// import Todo from './components/Todo'
 
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
     <>
       <Count/>
       <hr />
-      <Todo/>
+      {/* <Todo/> */}
 
     
     </>

@@ -1,9 +1,10 @@
 import { useState } from 'react'
 
 
-import { descCount, incCount, resetCount } from '../redux/action'
+// import { descCount, incCount, resetCount } from '../redux/action'
 
 import { useDispatch, useSelector } from 'react-redux'
+import { incCount, descCount, resetCount } from '../toolkit/counterSlice'
 
 
 
@@ -12,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 function Count() {
 
 
-  const count = useSelector((state) => state.counter)
+  const count = useSelector((state) => state.count)
 
   console.log(count)
 
@@ -22,14 +23,14 @@ function Count() {
 
   return (
     <>
-      <button onClick={() => dispatch(incCount()) } >+</button>
-        <h1>{count.count}</h1>
-      <button onClick={()=> dispatch(descCount())}>-</button>
+     <button onClick={() => dispatch(incCount()) } >+</button> 
+        <h1>{count}</h1>
+       <button onClick={()=> dispatch(descCount())}>-</button>
  <br/>
  <br/>
  <br/>
-      <button onClick={() => dispatch(resetCount())}>Reset</button>
-      
+      <button onClick={() => dispatch(resetCount())}>Reset</button> 
+  
     </>
   )
 }
