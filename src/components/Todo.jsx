@@ -9,8 +9,7 @@ const Todo = () => {
     const dispatch = useDispatch()
 
 
-
-  let todo = useSelector((state) => state)
+  let todo = useSelector((state) => state.todos)
 
   console.log(todo)
 

@@ -1,7 +1,7 @@
 import { ADD_TODO, CLEAR_TODO, REMOVE_TODO, UPDATE_TODO } from "./action"
 
 
-function reducer(store = [], action){
+function todoReducer(store = [], action){
 
     if(action.type == ADD_TODO)
     {
@@ -42,9 +42,13 @@ function reducer(store = [], action){
         return []
     }
 
+    else {
+        return store
+    }
+
    
     
 }
 
 
-export default reducer
+export default todoReducer

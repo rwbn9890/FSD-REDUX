@@ -3,7 +3,7 @@ import { DESC_COUNT, INC_COUNT, RESET_COUNT } from "./actionType"
 // state is orginal count,, action is function type;
 
 
- const reducer = (state={count:0}, action) => {
+ const counterReducer= (state={count:0}, action) => {
 
         // if(action.type == "INC")
         // return  {
@@ -42,4 +42,4 @@ import { DESC_COUNT, INC_COUNT, RESET_COUNT } from "./actionType"
 }
 
 
-export default reducer;
+export default counterReducer;
