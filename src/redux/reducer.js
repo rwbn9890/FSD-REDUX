@@ -26,6 +26,7 @@ import { DESC_COUNT, INC_COUNT, RESET_COUNT } from "./actionType"
                                     ...state,
                                     count:state.count+1
                                 }
+
             
             case DESC_COUNT :  return {
                                     ...state,
