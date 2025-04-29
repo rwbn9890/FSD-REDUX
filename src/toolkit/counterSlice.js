@@ -21,10 +21,11 @@ const counterSlice = createSlice({
 
         resetCount(state){
             state.count =0
+            
         }
     }
 })
 
 export const {incCount, descCount, resetCount} = counterSlice.actions
 
-export default  counterSlice.reducer;
+export default counterSlice.reducer;

@@ -4,5 +4,5 @@ import  countReducer from "./toolkit/counterSlice";
 
 export const store = configureStore({
     reducer: countReducer,
-    
+
 })
