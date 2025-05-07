@@ -35,7 +35,7 @@ useEffect(() => {
     return;
   }
 
- dispatch(postDataApi(cartData))
+ dispatch(postDataApi(cartData, auth.key))
 
 
 
