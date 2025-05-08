@@ -38,7 +38,6 @@ useEffect(() => {
  dispatch(postDataApi(cartData, auth.key))
 
 
-
 } ,[cartData])
 
 

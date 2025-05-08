@@ -4,7 +4,13 @@ import { login } from '../features/authSlice'
 
 import { ToastContainer, toast } from 'react-toastify';
 
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import app from '../firebaseconfig';
+import { current } from '@reduxjs/toolkit';
+
 const Login = () => {
+
+  const auth = getAuth(app)
 
   
   const [formdata, setFormData] = useState({name:"", img:"", email:"", password:""})
@@ -22,7 +28,6 @@ const Login = () => {
       [name]:value
     })
 
-
     setLogData({
       ...logdata,
       [name]:value
@@ -31,58 +36,56 @@ const Login = () => {
   }
 
 
-async  function handleReg(){
-  try {
-      const res = await fetch('https://cart-3f7f6-default-rtdb.firebaseio.com/auth.json' ,{
-      method: "POST",
-      body: JSON.stringify(formdata)
+  async function handleReg(){
+
+    try {
+     
+      const res = await createUserWithEmailAndPassword(auth, formdata.email, formdata.password)
+      const users = res.user
+
+      await updateProfile(users, {
+        displayName:formdata.name,
+        photoURL : formdata.img
     })
-    toast("Register Successfull...!")
-  } catch (error) {
-    console.log(error)
-    toast("something went wrong")
-  } 
 
-  handleLog()
-  
-  }
+    let cUser = auth.currentUser
+    dispatch(login({name:cUser.displayName, email:cUser.email, img: cUser.photoURL}))
 
+    toast.success("Sign UP successfull...!")
 
-
-  async function handleLog() {
-    try{
-      toast("loading....")
-      const res = await fetch("https://cart-3f7f6-default-rtdb.firebaseio.com/auth.json")
-      const data = await res.json();
-       
-      console.log(data)
-      // let users = Object.values(data)
-      console.log(Object.keys(data))
-
-      for(let key in data){
-        if(data[key].email == logdata.email && data[key].password == logdata.password)
-        {
-          toast("Login Successfull...!")
-          dispatch(login({...data[key], key:key}))
-          return
-        }
-      }
-      // let currentUser = users.find((ele) => ele.email == logdata.email && ele.password == logdata.password)
-      // console.log(currentUser)
-      // if(currentUser)
-      //   {
-      //   toast("Login Successfull...!")
-      //   dispatch(login({...currentUser, key:}))
-      // }
-      // else{
-      //   toast("invalie cedential...!")
-      // }
-    } catch (err){
-      console.log(err)
-      toast("something went wrong")
+    } catch (error) {
+      console.log(error.code)
+      console.log(error.message)
+      toast.error(error.message)
     }
    
+    
+    
   }
+
+
+  async function handleLog(){
+
+    try {
+      const res = await signInWithEmailAndPassword(auth, formdata.email, formdata.password)
+      const users = res.user
+      
+      console.log(auth.currentUser)
+      toast.success("Sign UP successfull...!")
+    } catch (error) {
+      console.log(error.code)
+      console.log(error.message)
+      toast.error(error.message)
+    }
+
+    
+  }
+
+
+
+
+
+
 
 
 
