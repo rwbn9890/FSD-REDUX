@@ -23,7 +23,7 @@ function App() {
   const [first, setFirst] = useState(true)
  
   // console.log(cart)
-  // console.log(auth)
+  console.log(auth)
 
   const dispatch = useDispatch()
 
