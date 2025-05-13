@@ -40,7 +40,8 @@ const Login = () => {
 
   useEffect(()=>{
 
-
+    const typePersist = remember ? browserLocalPersistence : browserSessionPersistence
+    setPersistence(auth, typePersist)
     onAuthStateChanged(auth, (user)=>{
         if(user)
         {

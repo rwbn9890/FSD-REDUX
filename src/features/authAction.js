@@ -14,8 +14,6 @@ import app from '../firebaseconfig';
 
 
   export const handleGoogle = async () => {
-        const typePersist = remember ? browserLocalPersistence : browserSessionPersistence
-        setPersistence(auth, typePersist)
       let res = await signInWithPopup(auth, provider)
       let cUser = auth.currentUser;   
         toast.success("Sign UP successfull...!")
@@ -24,8 +22,7 @@ import app from '../firebaseconfig';
 //   login with ekmail and passsword
 
 export  async function userLog(formdata){
-    const typePersist = remember ? browserLocalPersistence : browserSessionPersistence
-    setPersistence(auth, typePersist)
+
       const res = await signInWithEmailAndPassword(auth, formdata.email, formdata.password)
 
 
@@ -34,8 +31,7 @@ export  async function userLog(formdata){
 
   export const userReg= async () => {
     
-     const typePersist = remember ? browserLocalPersistence : browserSessionPersistence
-     setPersistence(auth, typePersist)
+ 
         const res = await createUserWithEmailAndPassword(auth, formdata.email, formdata.password)
         const users = res.user
   
