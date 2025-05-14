@@ -6,15 +6,23 @@ import { ToastContainer, toast } from 'react-toastify';
 
 import app from '../firebaseconfig';
 
-import { handleGoogle, userLog, userReg } from '../features/authAction';
+import { handleGithub, handleGoogle, userLog, userReg } from '../features/authAction';
+import { getFirestore, setDoc, doc } from 'firebase/firestore';
 import { getAuth, setPersistence, browserLocalPersistence, browserSessionPersistence, onAuthStateChanged } from 'firebase/auth';
 
+
 const Login = () => {
+
+  const db = getFirestore(app)
 
   const auth = getAuth(app)
   const [remember, setRemember] = useState(false)
   const [formdata, setFormData] = useState({name:"", img:"", email:"", password:""})
   const [logdata, setLogData] = useState({ email:"", password:""})
+  const cartData = useSelector((state) => state.cart)
+  const loginUser = useSelector((state)=> state.auth)
+
+
   
   const dispatch = useDispatch()
 
@@ -45,17 +53,29 @@ const Login = () => {
     onAuthStateChanged(auth, (user)=>{
         if(user)
         {
-          dispatch(login({name:user.displayName, email:user.email, img: user.photoURL}))
+          dispatch(login({name:user.displayName, email:user.email, img: user.photoURL, uid:user.uid}))
+        
+          // setDoc(doc(db, "cartData", user.uid),
+          //     {
+          //       cart: cartData
+          //     }
+          //   ).then((res)=>console.log(res))
         }
         else{
           dispatch(logout())
         }
+
+
  })
+  },[auth])
 
 
-  },[auth,])
 
 
+
+  
+  
+ 
 
 
 
@@ -120,7 +140,7 @@ const Login = () => {
                 <div className='flex justify-around'>
                   <button onClick={() => handleGoogle()} className='shadow rounded-full bg-slate-100 hover:bg-slate-300 overflow-hidden '><img className='w-[40px]' src="https://cdn-icons-png.flaticon.com/128/300/300221.png" alt="" /></button>
                   <button className='shadow rounded-full bg-slate-100 hover:bg-slate-300 overflow-hidden '><img className='w-[40px]' src="https://cdn-icons-png.flaticon.com/128/733/733547.png" alt="" /></button>
-                  <button className='shadow rounded-full bg-slate-100 hover:bg-slate-300 overflow-hidden '><img className='w-[40px]' src="https://cdn-icons-png.flaticon.com/128/3291/3291695.png" alt="" /></button>
+                  <button onClick={()=>handleGithub()} className='shadow rounded-full bg-slate-100 hover:bg-slate-300 overflow-hidden '><img className='w-[40px]' src="https://cdn-icons-png.flaticon.com/128/3291/3291695.png" alt="" /></button>
                 </div>
                 
                 
