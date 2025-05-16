@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
+const key =  import.meta.env.VITE_YOUTUBE_KEY
 
 const Youtube = () => {
+
 
     const [data, setData] = useState([])
     const [limit, setLimit] = useState(6)
@@ -8,7 +10,7 @@ const Youtube = () => {
 
 
        const fetchData =async (page) => {
-            const res = await fetch(`https://www.googleapis.com/youtube/v3/search?key=AIzaSyBHWjK-Tkv3N6kPkHMOLV7pbVKRodV_2N4&part=snippet&maxResults=${limit}&pageToken=${page}&q=programming`)
+            const res = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${key}&part=snippet&maxResults=${limit}${page ? `pageToken=${page}` : ''}&q=programming`)
             const newdata = await res.json();
             
             console.log(newdata)
@@ -29,7 +31,7 @@ const Youtube = () => {
             data.map((ele)=>(
                 <div className='col-4'>
                 
-                <iframe width="100%" height="300px" src={`https://www.youtube.com/embed/${ele.id.videoId}`}></iframe>
+                <iframe width="100%" height="300px" src={`https://www.youtube.com/embed/${ele.id.videoId}?modestbranding=1&rel=0&showinfo=0`}></iframe>
                 </div>
             ))
         }
